@@ -1,0 +1,87 @@
+<Window x:Class="AboutMyDevice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:basicInfo="clr-namespace:AboutMyDevice.Features.BasicInfo.Views"
+        xmlns:ramInfo="clr-namespace:AboutMyDevice.Features.RamInfo.Views"
+        xmlns:diskInfo="clr-namespace:AboutMyDevice.Features.DiskInfo.Views"
+        xmlns:batteryInfo="clr-namespace:AboutMyDevice.Features.BatteryInfo.Views"
+        Title="About My Device"
+        Height="760"
+        Width="1000"
+        MinHeight="580"
+        MinWidth="760"
+        Background="#F7F8FA"
+        WindowStartupLocation="CenterScreen">
+  <Window.InputBindings>
+    <KeyBinding Gesture="Alt+I" Command="{Binding SelectTabCommand}" CommandParameter="Basic Info" />
+    <KeyBinding Gesture="Alt+R" Command="{Binding SelectTabCommand}" CommandParameter="RAM Info" />
+    <KeyBinding Gesture="Alt+D" Command="{Binding SelectTabCommand}" CommandParameter="Disk Info" />
+    <KeyBinding Gesture="Alt+B" Command="{Binding SelectTabCommand}" CommandParameter="Battery Info" />
+    <KeyBinding Gesture="F1" Command="{Binding AboutCommand}" />
+    <KeyBinding Gesture="F5" Command="{Binding RefreshCategoryCommand}" />
+  </Window.InputBindings>
+  <DockPanel>
+    <Border DockPanel.Dock="Top"
+            Background="White"
+            BorderBrush="#E1E5E8"
+            BorderThickness="0,0,0,1"
+            Padding="16,8">
+      <DockPanel LastChildFill="True">
+        <TextBlock DockPanel.Dock="Right"
+                   Text="About My Device"
+                   FontSize="15"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right" />
+        <Menu IsTabStop="False" KeyboardNavigation.TabNavigation="None" VerticalAlignment="Center">
+          <MenuItem Header="_Export">
+            <MenuItem Header="Export to _CSV" Command="{Binding ExportCsvCommand}" />
+            <MenuItem Header="Export to _HTML" Command="{Binding ExportHtmlCommand}" />
+            <MenuItem Header="Export to _JSON" Command="{Binding ExportJsonCommand}" />
+          </MenuItem>
+          <MenuItem Header="_Help">
+            <MenuItem Header="_About the App" Command="{Binding AboutCommand}" InputGestureText="F1" />
+          </MenuItem>
+        </Menu>
+      </DockPanel>
+    </Border>
+    <Grid Margin="28,24">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+      <StackPanel Margin="0,0,0,18">
+        <TextBlock Text="View and export hardware and operating system specifications."
+                   FontSize="14"
+                   Foreground="#68727D"
+                   Margin="0,5,0,0" />
+        <TextBlock x:Name="StatusAnnouncement"
+                   Text="{Binding Status}"
+                   Margin="0,8,0,0"
+                   Foreground="#176B5B"
+                   AutomationProperties.LiveSetting="Polite" />
+      </StackPanel>
+      <TabControl x:Name="MainTabs"
+                  Grid.Row="1"
+                  SelectedValue="{Binding ActiveTab}"
+                  SelectedValuePath="Header"
+                  Padding="12"
+                  Background="White"
+                  Focusable="True"
+                  Loaded="MainTabs_OnLoaded">
+        <TabItem Header="Basic Info">
+          <basicInfo:BasicInfoView />
+        </TabItem>
+        <TabItem Header="RAM Info">
+          <ramInfo:RamInfoView />
+        </TabItem>
+        <TabItem Header="Disk Info">
+          <diskInfo:DiskInfoView />
+        </TabItem>
+        <TabItem Header="Battery Info">
+          <batteryInfo:BatteryInfoView />
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </DockPanel>
+</Window>

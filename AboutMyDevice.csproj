@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <ApplicationManifest>src\app.manifest</ApplicationManifest>
+    <RootNamespace>AboutMyDevice</RootNamespace>
+    <AssemblyName>AboutMyDevice</AssemblyName>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <DebugType>none</DebugType>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <Company>ARM Tech Lab</Company>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="System.Management" Version="10.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="src\App.xaml" />
+    <Content Include="tools\smartctl.exe" Link="tools\smartctl.exe" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tools\smartctl-nc.exe" Link="tools\smartctl-nc.exe" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tools\drivedb.h" Link="tools\drivedb.h" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
